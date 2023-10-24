@@ -1,3 +1,7 @@
+// Define audio elements
+const tickSound = new Audio('assets/tick.mp3');
+const chimesSound = new Audio('assets/chimes.mp3');
+
 let timer = null;
 let time = 0;
 
@@ -46,6 +50,7 @@ function stop() {
 }
 
 function reset() {
+    secondHand.style.transform = 'rotate(0deg)'; // Added line to reset the second hand
     clearInterval(timer);
     timer = null;
     time = 0;
