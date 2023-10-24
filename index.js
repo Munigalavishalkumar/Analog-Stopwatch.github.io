@@ -1,35 +1,34 @@
 // Define audio elements
-const tickSound = new Audio('assets/tick.mp3'); // Replace 'tick.mp3' with the actual path to your ticking sound file
-const chimesSound = new Audio('assets/chimes.mp3'); // Replace 'chimes.mp3' with the actual path to your chimes sound file
+const tickSound = new Audio('assets/tick.mp3');
+const chimesSound = new Audio('assets/chimes.mp3');
 
 let timer = null;
 let time = 0;
 
 const span = document.getElementById('time');
 const secondHand = document.getElementById('secondhand');
+const minuteHand = document.getElementById('minutehand');
+const hourHand = document.getElementById('hourhand');
 
 function counter() {
     time++;
-    seconds = time % 60;
-    secondsRatio = time % 60;
-    minutes = Math.floor(time / 60);
-    hours = Math.floor(time / 3600);
-    span.innerText = `${hours}:${minutes}:${seconds}`;
-    setRotation(secondHand, secondsRatio);
+    const seconds = time % 60;
+    const minutes = Math.floor((time / 60) % 60);
+    const hours = Math.floor(time / 3600);
+    span.innerText = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 
-    // Play a ticking sound every second
-    tickSound.currentTime = 0;
-    tickSound.play();
+    // Calculate the rotation angles for the clock hands
+    const secondRotation = (seconds / 60) * 360;
+    const minuteRotation = (minutes / 60) * 360 + (seconds / 60) * 6;
+    const hourRotation = (hours % 12) * 30 + (minutes / 60) * 30;
 
-    // Check if it's the hour to play the chimes
-    if (seconds === 0 && minutes === 0) {
-        chimesSound.currentTime = 0;
-        chimesSound.play();
-    }
+    setRotation(secondHand, secondRotation);
+    setRotation(minuteHand, minuteRotation);
+    setRotation(hourHand, hourRotation);
 }
 
 function setRotation(element, rotationRatio) {
-    element.style.setProperty('--rotation', 6 * rotationRatio);
+    element.style.transform = `rotate(${rotationRatio}deg)`;
 }
 
 let startbtn = document.getElementById('Start');
@@ -51,10 +50,15 @@ function stop() {
 }
 
 function reset() {
-    ratio = time;
-    secondHand.style.setProperty('--rotation', 0);
+    secondHand.style.transform = 'rotate(0deg)'; // Added line to reset the second hand
     clearInterval(timer);
     timer = null;
     time = 0;
     span.innerText = '00:00:00';
+    setRotation(secondHand, 0);
+    setRotation(minuteHand, 0);
+    setRotation(hourHand, 0);
 }
+
+// Initial setup
+reset();
