@@ -82,6 +82,30 @@ body {
 }
 
 
+
+.clock .hand.hour {
+    --rotation: 0deg;
+    width: 6px;
+    height: 30%;
+    background-color: #333; /* Change to your preferred color */
+}
+
+.clock .hand.minute {
+    --rotation: 0deg;
+    width: 4px;
+    height: 40%;
+    background-color: #666; /* Change to your preferred color */
+}
+
+.clock .hand.second {
+    --rotation: 0deg;
+    width: 2px;
+    height: 45%;
+    background-color: #ff0000; /* Red color for the second hand */
+}
+
+
+
 .clock .hand {
     --rotation: 0;
     position: absolute;
