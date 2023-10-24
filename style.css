@@ -146,22 +146,26 @@ body {
    
 }
 
-button{
-    /* height: 50px; */
-    /* width: 70px; */
+button {
     padding: 20px;
     text-align: center;
-    font-size: calc(16*1.45px);
+    font-size: calc(16 * 1.45px);
     margin-right: 1rem;
     cursor: pointer;
-    /* border:  3px solid; */
     background-color: rgba(255, 255, 255, 0.45);
     border: none;
     outline: none;
     border-radius: 10px;
-    box-shadow: 0px 0px 5px rgba(0,0,0,.6);
-    /* font-family: a; */
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, .6);
+    transition: background-color 0.3s, transform 0.3s;
+
+    /* Hover effect */
+    &:hover {
+        background-color: rgba(24, 7, 132, 0.7);
+        transform: scale(1.05);
+    }
 }
+
 #time{
     margin-bottom: 2rem;
     font-size: 3rem;
