@@ -1,3 +1,22 @@
+// Define digital clock element
+const digitalClock = document.getElementById('digitalClock');
+
+// Function to update the digital clock with the current time
+function updateDigitalClock() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+    digitalClock.innerText = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+// Initial setup to display the current time
+updateDigitalClock();
+
+// Update the digital clock every second (1000 milliseconds)
+setInterval(updateDigitalClock, 1000);
+
+
 // Define audio elements
 const tickSound = new Audio('assets/tick.mp3');
 const chimesSound = new Audio('assets/chimes.mp3');
@@ -10,6 +29,11 @@ const secondHand = document.getElementById('secondhand');
 const minuteHand = document.getElementById('minutehand');
 const hourHand = document.getElementById('hourhand');
 
+// Initialize the ticking sound
+tickSound.loop = true; // Loop the ticking sound
+tickSound.currentTime = 0;
+//initialize the chimes sound when minutes = 0 and seconds = 0
+chimesSound.currentTime = 0;
 function counter() {
     time++;
     const seconds = time % 60;
@@ -42,17 +66,23 @@ resetbtn.addEventListener("click", reset);
 function start() {
     if (timer) { return; }
     timer = setInterval(counter, 1000);
+    tickSound.play(); // Start playing the ticking sound
 }
 
 function stop() {
+    if (!timer) { return; }
     clearInterval(timer);
     timer = null;
+    tickSound.pause(); // Pause the ticking sound
 }
 
 function reset() {
-    secondHand.style.transform = 'rotate(0deg)'; // Added line to reset the second hand
-    clearInterval(timer);
-    timer = null;
+    if (timer) {
+        clearInterval(timer);
+        timer = null;
+    }
+    secondHand.style.transform = 'rotate(0deg';
+    tickSound.pause(); // Pause the ticking sound
     time = 0;
     span.innerText = '00:00:00';
     setRotation(secondHand, 0);
