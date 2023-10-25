@@ -94,7 +94,7 @@ body {
     --rotation: 0deg;
     width: 6px;
     height: 30%;
-    background-color: #333; /* Change to your preferred color */
+    background-color: #ede7e7; /* Change to your preferred color */
 }
 
 .clock .hand.minute {
@@ -170,4 +170,14 @@ button {
     margin-bottom: 2rem;
     font-size: 3rem;
     color: whitesmoke;
+}
+.digital-clock {
+    text-align: center;
+    font-size: 2rem;
+    color: #000; /* Digital clock text color */
+    margin: 2rem 0;
+}
+
+#digitalClock {
+    font-weight: bold;
 }
